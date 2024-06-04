@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Video</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.10.2/video-js.css" />
+</head>
+<body>
+  <video id="video" width="640" controls>
+    <source id="mpdSource" src="../media/vedio/vedio_files/127.0.0.1_8000_coursemanagement_p14ae_-_Work_-_Microsoft_Edge_2023-12-_ozX0vpG.mpd" type="application/dash+xml">
+</video>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.0.10/shaka-player.compiled.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('video');
+            const mpdSource = document.getElementById('mpdSource');
+
+            if (shaka.Player.isBrowserSupported()) {
+                const player = new shaka.Player(video);
+
+                player.load(mpdSource.src).then(() => {
+                    console.log('The video has been loaded successfully!');
+                }).catch(error => {
+                    console.error('Error loading video:', error);
+                });
+            } else {
+                console.error('Browser does not support Shaka Player!');
+            }
+        });
+    </script>
+</body>
+</html>
